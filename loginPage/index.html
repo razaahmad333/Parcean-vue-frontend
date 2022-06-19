@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+        <title>Login | Parc</title>
+    </head>
+
+    <body>
+        <div class="container pt-4" id="login-page" v-cloak>
+            <h1 class="is-size-2">
+                {{title}} <span class="has-text-danger">*</span>
+            </h1>
+            <form @submit.prevent="handleRegister" class=" pt-4">
+
+                <div class="columns">
+
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="username" class="label">Username</label>
+                            <div class="control">
+                                <input type="text" v-model="username" id="username" class="input is-primary">
+                            </div>
+                            <p class="help is-danger" v-if="errors.username">{{errors.username}}</p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="password" class="label">Password</label>
+                            <div class="control">
+                                <input type="password" v-model="password" id="password" class="input is-primary">
+                            </div>
+                            <p class="help is-danger" v-if="errors.password">{{errors.password}}</p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="field is-grouped">
+
+                    <div class="control">
+                        <a href="../beAParcean/index.html" class="button is-link is-light">Create New
+                            Account </a>
+                    </div>
+                    <div class="control">
+                        <button v-on:click="cancelRegister" type="button"
+                            class="button is-link is-light">Cancel</button>
+                    </div>
+
+                    <div class="control">
+                        <button class="button is-link">{{buttonLabel}}</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <script src="https://unpkg.com/vue@3"></script>
+        <script src="app.js"></script>
+    </body>
+
+</html>
