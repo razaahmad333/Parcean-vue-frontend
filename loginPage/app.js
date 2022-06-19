@@ -1,6 +1,18 @@
 const { createApp } = Vue;
 const BASE_URL = "http://127.0.0.1:8000/parcean/"
 
+
+const watch = {
+    password(_) {
+        this.errors.password = ""
+    },
+
+    username(_) {
+        this.errors.username = ""
+    }
+}
+
+
 createApp({
     data() {
         return {
@@ -14,18 +26,18 @@ createApp({
             },
         }
     },
-    created() {
 
-    },
+    watch,
+
     methods: {
         canLoginThisParcean(parcean) {
             const { username, password } = parcean;
 
-            if (username.length === 0) {
-                this.errors.username = 'Username is required';
-            }
             if (password.length === 0) {
                 this.errors.password = 'Password is required';
+            }
+            if (username.length === 0) {
+                this.errors.username = 'Username is required';
             }
             if (this.errors.username.length === 0 && this.errors.password.length === 0) {
                 return true;
@@ -51,10 +63,22 @@ createApp({
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        localStorage.setItem('token', data.token);
-                        this.username = '';
-                        this.password = '';
-                        window.location.href = '/'
+                        if (data.token) {
+                            localStorage.setItem('token', data.token);
+                            this.username = '';
+                            this.password = '';
+                            window.location.href = '/'
+                        }
+
+                        if (data.passwordIsNotCorrect) {
+                            this.errors.password = 'Password is not correct';
+                            this.$refs.password.focus();
+                        }
+
+                        if (data.usernameIsDoesNotExists) {
+                            this.errors.username = 'Username do not exists in database';
+                            this.$refs.username.focus();
+                        }
 
                     })
                     .catch(error => {

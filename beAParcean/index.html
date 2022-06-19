@@ -25,7 +25,8 @@
                         <div class="field">
                             <label for="name" class="label">Name</label>
                             <div class="control">
-                                <input type="text" name="name" v-model="name" id="name" class="input is-primary">
+                                <input type="text" name="name" ref="name" v-model="name" id="name"
+                                    :class="[ errors.name?'is-danger':'is-primary' ]" class="input">
                             </div>
                             <p class="help is-danger" v-if="errors.name">{{errors.name}}</p>
                         </div>
@@ -37,7 +38,8 @@
                         <div class="field">
                             <label for="username" class="label">Username</label>
                             <div class="control">
-                                <input type="text" v-model="username" id="username" class="input is-primary">
+                                <input type="text" v-model="username" ref="username" id="username"
+                                    :class="[ errors.username?'is-danger':'is-primary' ]" class="input">
                             </div>
                             <p class="help is-danger" v-if="errors.username">{{errors.username}}</p>
 
@@ -52,7 +54,8 @@
                         <div class="field">
                             <label for="password" class="label">Password</label>
                             <div class="control">
-                                <input type="password" v-model="password" id="password" class="input is-primary">
+                                <input type="password" ref="password" v-model="password" id="password" class="input"
+                                    :class="[ errors.password?'is-danger':'is-primary' ]">
                             </div>
                             <p class="help is-danger" v-if="errors.password">{{errors.password}}</p>
 
