@@ -42,6 +42,9 @@
                     <a href="./../students/index.html" class="navbar-item">
                         Students
                     </a>
+                    <a href="./../shop/index.html" class="navbar-item">
+                        Shops
+                    </a>
                     <a href="./../Academics/index.html" class="navbar-item">
                         Academics
                     </a>
@@ -82,7 +85,7 @@
                     </div>
                     <div class="navbar-item" v-else>
                         <div class="buttons">
-                            <a href="../beAParcean/index.html" class="button is-white has-text-success">
+                            <a href="../ProfilePage/index.html" class="button is-white has-text-success">
                                 <strong>
                                     <span class="icon">
                                         <i class="fas fa-user-circle"></i>
@@ -100,15 +103,44 @@
         </nav>
 
         <div class="container pt-5" v-cloak id="profile-page">
-            <div class="is-size-1" :class=" { 'has-text-danger' : isActive } ">{{name }}</div>
 
-            <button class="button" @click="isActive = !isActive">Toggle</button>
+            <div class="is-size-2 my-3">
+                {{currentUser?.name}}
+            </div>
+
+            <div class="is-size-3 mb-5">Wallet: ₹{{currentUser?.wallet}}</div>
+
+            <div class="mt-6 is-size-2">
+                Orders
+            </div>
+
+            <table class="table is-fullwidth is-hoverable">
+                <thead>
+                    <tr class="is-selected">
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <!-- <th></th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(order, idx) in orders" :key="order.id">
+                        <td>{{idx + 1}}</td>
+                        <td>{{order.item}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{order.total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
 
         </div>
 
 
         <script src="https://unpkg.com/vue@3"></script>
-        <script src="https://momentjs.com/downloads/moment.min.js"></script>
+        <script src="./../moment.js"> </script>
         <script src="app.js"></script>
         <script src="../navbar/app.js"></script>
     </body>

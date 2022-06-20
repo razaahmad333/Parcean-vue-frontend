@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Parc</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <script src="https://kit.fontawesome.com/0852c9b43a.js" crossorigin="anonymous"></script>
+
+        <style>
+            .card_image img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+
+        <nav class="navbar" role="navigation" aria-label="main navigation" id="navbar">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="https://bulma.io">
+                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a href="/" class="navbar-item">
+                        Home
+                    </a>
+
+                    <a href=".././students/index.html" class="navbar-item">
+                        Students
+                    </a>
+
+                    <a href=".././Academics/index.html" class="navbar-item">
+                        Academics
+                    </a>
+                    <a href="./index.html" class="navbar-item">
+                        Shops
+                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            More
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                About
+                            </a>
+                            <a class="navbar-item">
+                                Jobs
+                            </a>
+                            <a class="navbar-item">
+                                Contact
+                            </a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item">
+                                Report an issue
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item" v-if="!isAuthenticated">
+                        <div class="buttons">
+                            <a href="./beAParcean/index.html" class="button is-primary">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a href="./loginPage/index.html" class="button is-light">
+                                Log in
+                            </a>
+                        </div>
+                    </div>
+                    <div class="navbar-item" v-else>
+                        <div class="buttons">
+                            <a href="./../ProfilePage/index.html" class="button is-white has-text-success">
+                                <strong>
+                                    <span class="icon">
+                                        <i class="fas fa-user-circle"></i>
+                                    </span>
+                                    <span>{{user?.name}}</span>
+                                </strong>
+                            </a>
+                            <a href="./loginPage/index.html" class="button is-light">
+                                Log out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="cart-page" class="container mt-6">
+
+            <div class="columns" v-if="item">
+                <div class="column">
+                    <div class="card_image" v-if="item">
+                        <img :src="getImageURL(item)" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="column pl-6">
+                    <h1 class="is-size-2">
+                        {{item.name}}
+                    </h1>
+
+                    <br>
+
+                    <div class="is-size-1">
+                        ₹ {{item.price}}
+                    </div>
+
+                    <!-- <div class="columns">
+                        <div class="column">
+                            <button class="button">-</button>
+                        </div>
+                        <div class="column">
+                            <div class="field is-fullwidth">
+
+                                <div class="control is-fullwidth">
+                                    <input type="number" class="input ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button class="button">+</button>
+                        </div>
+                    </div> -->
+                    <hr>
+
+                    <div class="is-size-5 mt-4">Quantity</div>
+                    <div class="is-flex mt-2">
+                        <button class="button has-text-weight-bold "
+                            @click=" quantity = quantity===1?1:quantity - 1">-</button>
+                        <input v-model="quantity" type="number" style="width:100px ;"
+                            class="input mx-4 has-text-centered ">
+                        <button class="button has-text-weight-bold" @click="quantity++">+</button>
+                    </div>
+
+                    <div class="is-size-4 mt-4">
+                        Total
+                    </div>
+                    <div class="is-size-3" :class="{'has-text-danger':quantity*item.price > currentUser.wallet}">
+                        ₹ {{quantity * item.price}}
+                    </div>
+
+                    <div class="is-size-4 mt-4">
+                        Wallet after purchase
+                    </div>
+                    <div class="is-size-3" :class="{'has-text-danger':quantity*item.price > currentUser.wallet}">
+                        ₹ {{ currentUser.wallet - quantity * item.price}}
+                    </div>
+
+                    <div class="is-size-4 mt-4">
+                        <button class="button is-primary" @click="buy">
+                            Buy
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://unpkg.com/vue@3"></script>
+        <script src="app.js"></script>
+        <script src="./../navbar/app.js"></script>
+
+    </body>
+
+</html>
